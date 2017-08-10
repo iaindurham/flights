@@ -7,6 +7,17 @@ const mocks = {
 };
 
 describe('Flights Service', () => {
+
+    describe('isCodeShare', () => {
+        it('should return true when the flight IS a code share', () => {
+            expect(flightsService.isCodeShare(mocks.request.flights[3])).to.be.true;
+        });
+
+        it('should return false when the flight is NOT a code share', () => {
+            expect(flightsService.isCodeShare(mocks.request.flights[0])).to.be.false;
+        });
+    });
+
     describe('parse', () => {
         describe('Given a set of flights', () => {
             const flightData = mocks.request;

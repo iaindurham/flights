@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { expect } = require('chai');
 
 const flightsService = require('./flights.service');
@@ -9,12 +10,44 @@ const mocks = {
 describe('Flights Service', () => {
 
     describe('isCodeShare', () => {
+        let mockFlight;
+
+        beforeEach(() => {
+            mockFlight = _.cloneDeep(mocks.request.flights[0]);
+        });
         it('should return true when the flight IS a code share', () => {
-            expect(flightsService.isCodeShare(mocks.request.flights[3])).to.be.true;
+            mockFlight.airline = 'EK';
+            expect(flightsService.isCodeShare(mockFlight)).to.be.true;
         });
 
         it('should return false when the flight is NOT a code share', () => {
-            expect(flightsService.isCodeShare(mocks.request.flights[0])).to.be.false;
+            mockFlight.airline = 'QF';
+            expect(flightsService.isCodeShare(mockFlight)).to.be.false;
+        });
+    });
+
+    describe('doesPassThroughSydney', () => {
+        let mockFlight;
+
+        beforeEach(() => {
+            mockFlight = _.cloneDeep(mocks.request.flights[0]);
+        });
+
+        it('should return true when the flight departs from Sydney', () => {
+            mockFlight.departure.airport = 'SYD';
+            expect(flightsService.doesPassThroughSydney(mockFlight)).to.be.true;
+        });
+
+        it('should return true when the flight arrives in Sydney', () => {
+            mockFlight.arrival.airport = 'SYD';
+            expect(flightsService.doesPassThroughSydney(mockFlight)).to.be.true;
+        });
+
+        it('should return false when the flight does NOT arrive OR depart from Sydney', () => {
+            mockFlight.departure.airport = 'PER';
+            mockFlight.arrival.airport = 'DRW';
+
+            expect(flightsService.doesPassThroughSydney(mockFlight)).to.be.false;
         });
     });
 

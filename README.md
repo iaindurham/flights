@@ -3,15 +3,25 @@
 ## Requirements
 
 - npm
-- node > v6
+- nvm
 
 ## Installation
 
 1. Clone the repo
-2. Run: `npm install`
+2. In root directory of cloned repo run
+   1. `nvm use`
+   2. `npm install`
 
 ## Running app
 
-1. `npm start`
+```bash
+npm start
+```
 
 This will start the app running on `localhost:3000`
+
+## Tests
+
+```bash
+npm test
+```

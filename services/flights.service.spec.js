@@ -8,7 +8,6 @@ const mocks = {
 };
 
 describe('Flights Service', () => {
-
     describe('isCodeShare', () => {
         let mockFlight;
 
@@ -48,6 +47,20 @@ describe('Flights Service', () => {
             mockFlight.arrival.airport = 'DRW';
 
             expect(flightsService.doesPassThroughSydney(mockFlight)).to.be.false;
+        });
+    });
+
+    describe('filterFlightDetails', () => {
+        const expectedResult = {
+            flight: 'QF801',
+            origin: 'DRW',
+            destination: 'PER',
+            departureTime: '2017-06-20T21:00:00Z'
+        };
+
+        it('should return an object with the expected keys and values', () => {
+            const mockFlight = mocks.request.flights[0];
+            expect(flightsService.filterFlightDetails(mockFlight)).to.deep.equal(expectedResult);
         });
     });
 

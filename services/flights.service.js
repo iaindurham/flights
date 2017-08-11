@@ -9,12 +9,22 @@ class flightsService {
         return flightData.arrival.airport === airportCode || flightData.departure.airport === airportCode;
     }
 
+    static filterFlightDetails(flightData) {
+        return {
+            flight: `${flightData.airline}${flightData.flightNumber}`,
+            origin: flightData.departure.airport,
+            destination: flightData.arrival.airport,
+            departureTime: flightData.departure.scheduled
+        }
+    }
+
     static parse(data) {
         let flights = [];
 
         for (const flight of data.flights) {
             if (!this.isCodeShare(flight) && this.doesPassThroughSydney(flight)) {
-                flights.push(flight);
+                const filteredDetails = this.filterFlightDetails(flight);
+                flights.push(filteredDetails);
             }
         }
 

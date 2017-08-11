@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const flightsService = require('../services/flights.service');
 
-/* GET flights listing. */
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
+const router = express.Router();
+
+router.post('/', function(req, res, next) {
+    const parsedFlights = flightsService.parse(req.body);
+    res.json(parsedFlights);
 });
 
 module.exports = router;

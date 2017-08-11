@@ -34,7 +34,14 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+
+    if (err.status === 400) {
+        return res.json({
+            "error": "Error parsing JSON",
+        });
+    }
+
+    res.send(err);
 });
 
 module.exports = app;

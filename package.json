@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha **/*.spec.js"
+    "test": "mocha **/*.spec.js",
+    "prepush": "npm test"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.1",
+    "husky": "^0.14.3",
     "istanbul": "^0.4.5",
     "lodash": "^4.17.4",
     "mocha": "^3.5.0",
